@@ -14,7 +14,7 @@
 <details align="center">  
   <summary>
       <samp>
-        <b>Project Info</b>
+        <b>Informações do projeto</b>
       </samp>
   </summary>
   
@@ -23,7 +23,7 @@
 <div align="center">
   <samp>
     <b>
-      Technologies Used
+      Tecnologias usadas
     </b>
   </samp>
   <br>
@@ -44,7 +44,7 @@
 <div align="center">
   <samp>
     <b>
-      Run Locally
+      Como rodas localmente
     </b>
   </samp>
   <br>
