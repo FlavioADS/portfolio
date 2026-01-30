@@ -3,16 +3,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "@/lib/hooks";
-import { sendEmail } from "@/actions/sendEmail";
-import toast from "react-hot-toast";
 import SectionHeading from "./section-heading";
-import SubmitBtn from "./submit-btn";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { useLanguage } from "@/context/language-context";
 
 export default function Contact() {
   const { ref } = useSectionInView("contact");
   const { t } = useLanguage();
+
+  const email = "flaviodearaujodosanjos1945@gmail.com";
 
   return (
     <motion.section
@@ -27,52 +26,21 @@ export default function Contact() {
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <SectionHeading>{t("contact.heading")}</SectionHeading>
-          <p className="text-gray-600 dark:text-white/70 mt-2">{t("contact.subtitle")}</p>
+          <p className="text-gray-600 dark:text-white/70 mt-2">
+            {t("contact.subtitle")}
+          </p>
         </div>
 
         <div className="mt-12 rounded-3xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-white/5 shadow-2xl shadow-black/[0.08] dark:shadow-black/40 backdrop-blur-xl p-7 sm:p-10 lg:p-12">
-          <form
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5"
-            action={async (formData: FormData) => {
-              const { error } = await sendEmail(formData);
-              if (error) {
-                toast.error(error);
-                return;
-              }
-              toast.success(t("contact.success"));
-            }}
-          >
-            <input
-              type="text"
-              name="senderName"
-              placeholder={t("contact.name")}
-              required
-              maxLength={100}
-              className="h-14 w-full rounded-2xl px-5 text-[0.98rem] border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white placeholder-black/45 dark:placeholder-white/45 outline-none transition focus:border-black/20 dark:focus:border-white/20 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/15"
-            />
-
-            <input
-              name="senderEmail"
-              type="email"
-              required
-              maxLength={500}
-              placeholder={t("contact.email")}
-              className="h-14 w-full rounded-2xl px-5 text-[0.98rem] border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white placeholder-black/45 dark:placeholder-white/45 outline-none transition focus:border-black/20 dark:focus:border-white/20 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/15"
-            />
-
-            <textarea
-              name="message"
-              placeholder={t("contact.message")}
-              required
-              maxLength={5000}
-              className="md:col-span-2 min-h-[210px] w-full rounded-2xl px-5 py-4 text-[0.98rem] border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 text-black dark:text-white placeholder-black/45 dark:placeholder-white/45 outline-none transition focus:border-black/20 dark:focus:border-white/20 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/15 resize-none"
-            />
-
-            <div className="md:col-span-2 flex flex-col gap-3 pt-1">
-              <SubmitBtn />
-
-            </div>
-          </form>
+          {/* Botão para enviar email */}
+          <div className="flex justify-center mb-8">
+            <a
+              href={`mailto:${email}`}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-base font-semibold border border-black/10 dark:border-white/10 bg-black/90 dark:bg-white/10 text-white dark:text-black transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/[0.06] dark:hover:shadow-black/40"
+            >
+              {t("contact.sendEmail")}
+            </a>
+          </div>
 
           <div className="my-10 h-px bg-black/10 dark:bg-white/10" />
 

@@ -1,105 +1,72 @@
+"use client";
+
 import React from "react";
-import {
-  Html,
-  Body,
-  Head,
-  Heading,
-  Hr,
-  Container,
-  Preview,
-  Section,
-  Text,
-} from "@react-email/components";
-import { Tailwind } from "@react-email/tailwind";
+import { useLanguage } from "@/context/language-context";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
-type ContactFormEmailProps = {
-  message: string;
-  senderName: string;
-  senderEmail: string;
-  submittedAt?: string;
-};
+export default function ContactSection() {
+  const { t } = useLanguage();
 
-function formatDate(iso?: string) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleString("pt-PT", { dateStyle: "full", timeStyle: "short" });
-}
-
-export default function ContactFormEmail({
-  message,
-  senderName,
-  senderEmail,
-  submittedAt,
-}: ContactFormEmailProps) {
-  const when = formatDate(submittedAt);
+  const email = "flaviodearaujodosanjos1945@gmail.com";
 
   return (
-    <Html>
-      <Head />
-      <Preview>Nova mensagem do teu portfólio</Preview>
+    <section id="contact" className="py-16 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+          {t("contact.heading")}
+        </h2>
+        <p className="text-gray-700 dark:text-gray-300 mb-8">
+          {t("contact.subtitle")}
+        </p>
 
-      <Tailwind>
-        <Body className="bg-gray-100 text-black">
-          <Container className="mx-auto px-4 py-10">
-            <Section className="bg-white border border-black/10 rounded-2xl overflow-hidden">
-              <Section className="px-8 py-7">
-                <Text className="text-xs uppercase tracking-widest text-gray-500 m-0">
-                  Portfólio - Formulário de Contacto
-                </Text>
+        <a
+          href={`mailto:${email}`}
+          className="
+            inline-block mb-8 px-6 py-3
+            bg-[#AA9D8D] text-white font-semibold
+            rounded-xl shadow-lg
+            hover:bg-[#977f70] transition
+          "
+        >
+          {t("contact.sendEmail")}
+        </a>
 
-                <Heading className="text-2xl font-bold mt-2 mb-0 leading-tight">
-                  Nova mensagem recebida
-                </Heading>
+        <div className="flex justify-center gap-6 text-gray-700 dark:text-gray-300">
+          <div className="flex flex-col items-center">
+            <span className="font-semibold mb-1">Flávio</span>
+            <a href={`mailto:${email}`} className="underline hover:text-gray-900 dark:hover:text-white">
+              {email}
+            </a>
+          </div>
 
-                {when ? (
-                  <Text className="text-sm text-gray-600 mt-2 mb-0">
-                    Recebida em: <span className="font-medium text-gray-800">{when}</span>
-                  </Text>
-                ) : (
-                  <Text className="text-sm text-gray-600 mt-2 mb-0">
-                    Recebida agora mesmo.
-                  </Text>
-                )}
-
-                <Hr className="my-6 border-black/10" />
-
-                <Section className="bg-gray-50 border border-black/10 rounded-xl px-5 py-4">
-                  <Text className="m-0 text-sm text-gray-600">De</Text>
-                  <Text className="m-0 text-lg font-semibold text-gray-900">
-                    {senderName}
-                  </Text>
-                  <Text className="m-0 text-sm text-gray-700">
-                    {senderEmail}
-                  </Text>
-                </Section>
-
-                <Text className="text-sm text-gray-600 mt-6 mb-2">
-                  Mensagem
-                </Text>
-
-                <Section className="bg-white border border-black/10 rounded-xl px-5 py-4">
-                  <Text className="m-0 text-[15px] leading-relaxed text-gray-900 whitespace-pre-wrap">
-                    {message}
-                  </Text>
-                </Section>
-
-                <Hr className="my-6 border-black/10" />
-
-                <Text className="text-xs text-gray-500 m-0 leading-relaxed">
-                  Dica: podes responder diretamente a este email — o Reply-To está configurado com o email do remetente.
-                </Text>
-              </Section>
-
-              <Section className="bg-gray-50 px-8 py-5 border-t border-black/10">
-                <Text className="text-xs text-gray-500 m-0">
-                  © {new Date().getFullYear()} • Flávio de Araújo Silva
-                </Text>
-              </Section>
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
-    </Html>
+          <div className="flex flex-col items-center">
+            <a
+              href="https://github.com/FlavioADS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white"
+            >
+              <FaGithub /> GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/flavioaraujo/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white mt-2"
+            >
+              <FaLinkedin /> LinkedIn
+            </a>
+            <a
+              href="https://www.instagram.com/flavioaraujo/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-gray-900 dark:hover:text-white mt-2"
+            >
+              <FaInstagram /> Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
