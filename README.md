@@ -1,12 +1,12 @@
 <div align="center">
   
-  <b>` Personal Portfolio Project `</b>
+  <b>` Portfólio pessoal `</b>
 </div>
 
 <br>
 
 <div align="center" width="100%">
-  <img src="https://readme-typing-svg.demolab.com?font=Iosevka&color=ECDED1&width=900&size=22&center=true&lines=Front+End+Portfolio;Built+with+Next.js+%26+TypeScript;Scroll+Animations+%7C+Modern+UI;Designed+for+Real+Users" alt="Typing SVG"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Iosevka&color=ECDED1&width=900&size=22&center=true&lines=Portfolio+Front-End;Construido+com+Next.js+%26+TypeScript;Animacoes+de+Scroll+%7C+UI+Moderna;Projetado+para+Usuarios+Reais" alt="Typing SVG"/>
 </div>
 
 <br>
@@ -18,31 +18,6 @@
       </samp>
   </summary>
   
-<br>
-
-##
-
-<br>
-
-<div align="center">
-  <samp>
-    <b>
-      About This Project
-    </b>
-  </samp>
-  <br>
-  <br>
-
-  <samp>
-    This is my personal portfolio, developed as part of my <br>
-    <b>Professional Aptitude Project (PAP)</b> during the Systems Informatics course.
-    <br><br>
-    The goal is to present my work as a front-end developer, <br>
-    focusing on modern design, smooth animations, and user experience.
-  </samp>
-
-</div>
-
 <br>
 
 <div align="center">
@@ -62,28 +37,6 @@
   <img src="https://img.shields.io/badge/Framer_Motion-ECDED1?style=for-the-badge&logo=framer&logoColor=000000"/>
   <img src="https://img.shields.io/badge/Vercel-ECDED1?style=for-the-badge&logo=vercel&logoColor=000000"/>
 
-</div>
-
-<br>
-
-<div align="center">
-  <samp>
-    <b>
-      Main Features
-    </b>
-  </samp>
-  <br>
-  <br>
-
-  <samp>
-    ✦ Light & Dark Mode <br>
-    ✦ English & Portuguese Translation <br>
-    ✦ Scroll-based animations <br>
-    ✦ Custom cursor interaction <br>
-    ✦ Fully responsive layout <br>
-    ✦ Functional contact form <br>
-    ✦ Clean and reusable component structure
-  </samp>
 </div>
 
 <br>
