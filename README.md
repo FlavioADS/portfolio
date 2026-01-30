@@ -91,7 +91,7 @@
   <samp>
     <a href="https://github.com/flavioads">github</a> ⊹
     <a href="https://www.linkedin.com/in/flavioads">linkedin</a> ⊹
-    <a href="https://www.instagram.com/f_araaujo/">instagram</a> ♡
+    <a href="https://www.instagram.com/f_araaujo/">instagram</a> 
   </samp>
 </div>
 

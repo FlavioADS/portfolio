@@ -6,8 +6,6 @@ import { getProjectsData } from "@/lib/data";
 import { useSectionInView } from "@/lib/hooks";
 import { motion, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { useLanguage } from "@/context/language-context";
 
 type ProjectItem = {
@@ -15,30 +13,22 @@ type ProjectItem = {
   description: string;
   tags?: readonly string[];
   imageUrl: StaticImageData;
-  githubUrl?: string;
-  liveUrl?: string;
-  isExternal?: boolean;
+  githubUrl: string;
 };
 
 function clamp(v: number, min: number, max: number) {
   return Math.min(max, Math.max(min, v));
 }
 
-function isInternalUrl(url?: string) {
-  if (!url) return false;
-  return url.startsWith("/");
-}
-
-function getDemoHref(item: ProjectItem) {
-  if (!item.liveUrl) return null;
-  return item.liveUrl;
-}
-
-function SpotlightCard({ item, labels }: { item: ProjectItem; labels: { github: string; demo: string } }) {
-  const demoHref = getDemoHref(item);
-
+function SpotlightCard({ item }: { item: ProjectItem }) {
   return (
-    <div className="group" data-cursor="view">
+    <a
+      href={item.githubUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block group relative"
+      data-cursor="view"
+    >
       <div
         className="
           bg-gray-100 dark:bg-white/10
@@ -48,101 +38,56 @@ function SpotlightCard({ item, labels }: { item: ProjectItem; labels: { github: 
           hover:shadow-2xl
         "
       >
-        <div className="relative h-64 sm:h-80 md:h-[22rem] overflow-hidden">
+        <div className="relative h-64 w-full">
           <Image
             src={item.imageUrl}
             alt={item.title}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-            priority={false}
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            priority
           />
-          <div className="absolute inset-0 bg-black/15" />
+
+          {/* Overlay */}
+          <div
+            className="
+              absolute inset-0 flex items-center justify-center
+              bg-black/60 opacity-0
+              group-hover:opacity-100
+              transition
+            "
+          >
+            <span className="text-white text-sm font-semibold tracking-wide">
+              Ver no GitHub →
+            </span>
+          </div>
         </div>
 
-        <div className="p-6 sm:p-7 text-left">
-          <h3 className="text-2xl sm:text-3xl font-bold mb-3 dark:text-white">{item.title}</h3>
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            {item.title}
+          </h3>
 
-          <p className="text-gray-700 dark:text-white/70 leading-relaxed">{item.description}</p>
+          <p className="mt-2 text-sm text-gray-600 dark:text-white/70">
+            {item.description}
+          </p>
 
-          {item.tags && item.tags.length > 0 && (
-            <ul className="flex flex-wrap gap-2 mt-5">
-              {item.tags.map((tag, index) => (
-                <motion.li
-                  key={index}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="
-                    bg-[#101c3d] dark:bg-white/10
-                    px-3 py-1.5 text-[0.72rem] uppercase tracking-wider
-                    text-white dark:text-white
-                    rounded-full
-                    border border-black/0 dark:border-white/10
-                  "
+          {item.tags && (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {item.tags.map((tag, i) => (
+                <li
+                  key={i}
+                  className="text-xs px-3 py-1 rounded-full
+                             bg-black/5 dark:bg-white/10
+                             text-gray-700 dark:text-white/70"
                 >
                   {tag}
-                </motion.li>
+                </li>
               ))}
             </ul>
           )}
-
-          <div className="flex flex-wrap gap-3 mt-6">
-            {item.githubUrl && (
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.98 }}
-                href={item.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="
-                  inline-flex items-center gap-2
-                  px-4 py-2 rounded-xl
-                  bg-[#101c3d] text-white
-                  transition
-                "
-              >
-                <FaGithub /> {labels.github}
-              </motion.a>
-            )}
-
-            {demoHref && (
-              <>
-                {isInternalUrl(demoHref) ? (
-                  <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                    <Link
-                      href={demoHref}
-                      className="
-                        inline-flex items-center gap-2
-                        px-4 py-2 rounded-xl
-                        bg-[#AA9D8D] text-white
-                        transition
-                      "
-                    >
-                      <FaExternalLinkAlt /> {labels.demo}
-                    </Link>
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.98 }}
-                    href={demoHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                      inline-flex items-center gap-2
-                      px-4 py-2 rounded-xl
-                      bg-[#AA9D8D] text-white
-                      transition
-                    "
-                  >
-                    <FaExternalLinkAlt /> {labels.demo}
-                  </motion.a>
-                )}
-              </>
-            )}
-          </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -159,7 +104,11 @@ export default function Projects() {
     [inViewRef]
   );
 
-  const items = useMemo(() => getProjectsData(lang) as unknown as ProjectItem[], [lang]);
+  const items = useMemo(
+    () => getProjectsData(lang) as unknown as ProjectItem[],
+    [lang]
+  );
+
   const total = items.length;
 
   const { scrollYProgress } = useScroll({
@@ -194,20 +143,23 @@ export default function Projects() {
     () => ({
       project: t("projects.project"),
       active: t("projects.active"),
-      github: t("projects.github"),
-      demo: t("projects.demo"),
     }),
     [t]
   );
 
   return (
-    <section ref={setRefs} id="projects" className="py-10 md:py-16 lg:py-20 scroll-mt-28">
+    <section
+      ref={setRefs}
+      id="projects"
+      className="py-10 md:py-16 lg:py-20 scroll-mt-28"
+    >
       <div className="container mx-auto px-4">
         <div className="mb-10 text-center">
           <SectionHeading>{t("projects.heading")}</SectionHeading>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Lista lateral */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
               <div className="flex flex-col gap-2">
@@ -233,9 +185,12 @@ export default function Projects() {
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <p className="text-[0.72rem] uppercase tracking-widest text-gray-500 dark:text-white/40">
-                            {labels.project} {String(i + 1).padStart(2, "0")}
+                            {labels.project}{" "}
+                            {String(i + 1).padStart(2, "0")}
                           </p>
-                          <h4 className="text-lg font-bold text-gray-900 dark:text-white mt-1">{item.title}</h4>
+                          <h4 className="text-lg font-bold text-gray-900 dark:text-white mt-1">
+                            {item.title}
+                          </h4>
                         </div>
 
                         <motion.span
@@ -246,7 +201,9 @@ export default function Projects() {
                         </motion.span>
                       </div>
 
-                      <p className="mt-2 text-sm text-gray-600 dark:text-white/60 line-clamp-2">{item.description}</p>
+                      <p className="mt-2 text-sm text-gray-600 dark:text-white/60 line-clamp-2">
+                        {item.description}
+                      </p>
                     </motion.button>
                   );
                 })}
@@ -254,6 +211,7 @@ export default function Projects() {
             </div>
           </div>
 
+          {/* Card ativo */}
           <div className="lg:col-span-8">
             <div className="lg:sticky lg:top-28">
               {active && (
@@ -263,7 +221,7 @@ export default function Projects() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35 }}
                 >
-                  <SpotlightCard item={active} labels={{ github: labels.github, demo: labels.demo }} />
+                  <SpotlightCard item={active} />
                 </motion.div>
               )}
             </div>

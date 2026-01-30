@@ -53,7 +53,7 @@ export const sendEmail = async (formData: FormData) => {
   const safeSenderName =
     validateString(senderName, 120) && senderName.length >= 2 ? senderName : "Anônimo";
 
-  const toEmail = (process.env.CONTACT_TO_EMAIL || "dumitrachefilha@gmail.com").trim();
+  const toEmail = (process.env.CONTACT_TO_EMAIL || "flaviodearaujo327@gmail.com").trim();
   const fromEmail = (process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev").trim();
   const fromName = (process.env.RESEND_FROM_NAME || "Portfólio Flávio").trim();
 

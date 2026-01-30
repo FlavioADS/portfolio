@@ -93,14 +93,17 @@ export default function Intro() {
         <h2 className="mb-6 text-2xl sm:text-2xl font-medium !leading-[1.5]">
           {lang === "pt" ? (
             <>
-              Desenvolvedor em formação, com foco em <span className="font-bold">análise, lógica de programação e desenvolvimento de sistemas</span>.
+              Estudante de Análise e Desenvolvimento de Sistemas, com experiência acadêmica e prática no{" "}
+              <span className="font-bold">desenvolvimento de sistemas e soluções digitais</span>.
             </>
           ) : (
             <>
-              Developer in training, focused on <span className="font-bold"> problem solving, programming logic, and system development</span>.
+              Student of Systems Analysis and Development, with academic and practical experience in{" "}
+              <span className="font-bold">system development and digital solutions</span>.
             </>
           )}
         </h2>
+
 
         <div className="flex flex-wrap justify-center sm:justify-end gap-4 text-lg font-medium mt-4">
   <Magnetic strength={0.35}>
