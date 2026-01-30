@@ -44,7 +44,7 @@
 <div align="center">
   <samp>
     <b>
-      Como rodas localmente
+      Como rodar localmente
     </b>
   </samp>
   <br>
